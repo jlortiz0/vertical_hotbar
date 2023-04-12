@@ -50,6 +50,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
+        int j = this.getZOffset();
+        this.setZOffset(-90);
         if (config.hotbarBorder) {
             client.getTextureManager().bindTexture(BARS);
             Vec2i pos = getSlotPos(0, scaledWidth, scaledHeight);
@@ -74,6 +76,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
             Vec2i pos = getSlotPos(9, scaledWidth, scaledHeight);
             drawTexture(matrixStack, pos.x - 1, pos.y - 2, 24, 22, 29, 24);
         }
+        this.setZOffset(j);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
