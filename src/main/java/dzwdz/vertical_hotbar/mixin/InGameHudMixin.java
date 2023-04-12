@@ -48,15 +48,15 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
         int j = this.getZOffset();
         this.setZOffset(-90);
         if (config.hotbarBorder) {
-            client.getTextureManager().bindTexture(BARS);
+            RenderSystem.setShaderTexture(0, BARS);
             Vec2i pos = getSlotPos(0, scaledWidth, scaledHeight);
             drawTexture(matrixStack, pos.x - 1, pos.y - 1, 20, 0, 22, 182);
         }
+        RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
         for(int i = 0; i < 9; i++) {
             Vec2i pos = getSlotPos(i, scaledWidth, scaledHeight);
@@ -107,7 +107,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
         String s = Integer.toString(val);
         int w = client.textRenderer.getWidth(s);
         client.textRenderer.drawWithShadow(matrixStack, Integer.toString(val), pos.x - 2 - w, pos.y, color);
-        client.getTextureManager().bindTexture(GUI_ICONS_TEXTURE);
+        RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
     }
 
     @Inject(at = @At("HEAD"), cancellable = true,
@@ -155,7 +155,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     public void renderExperienceBar(MatrixStack matrixStack, int _x, CallbackInfo callbackInfo) {
         if (!config.enabled) return;
 
-        client.getTextureManager().bindTexture(EntryPoint.BARS);
+        RenderSystem.setShaderTexture(0, BARS);
 
         int nextLevelXP = client.player.getNextLevelExperience();
         if (nextLevelXP > 0) {
@@ -181,7 +181,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
             client.textRenderer.draw(matrixStack, s, x, pos.y, 0x80FF20);
         }
 
-        client.getTextureManager().bindTexture(GUI_ICONS_TEXTURE);
+        RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
         callbackInfo.cancel();
     }
 
@@ -190,7 +190,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     public void renderMountJumpBar(MatrixStack matrixStack, int _x, CallbackInfo callbackInfo) {
         if (!config.enabled) return;
 
-        client.getTextureManager().bindTexture(EntryPoint.BARS);
+        RenderSystem.setShaderTexture(0, BARS);
 
         int n = (int)(client.player.getMountJumpStrength() * 183f);
         Vec2i pos = getBarPos(scaledWidth, scaledHeight);
@@ -213,7 +213,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
         callbackInfo.cancel();
     }
 
-    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/StringRenderable;FFI)I"),
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"),
                method = "Lnet/minecraft/client/gui/hud/InGameHud;renderHeldItemTooltip(Lnet/minecraft/client/util/math/MatrixStack;)V", index = 3)
     public float centerItemTooltip(float y) {
         if (!config.enabled) return y;
