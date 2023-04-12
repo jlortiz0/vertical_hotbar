@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dzwdz.vertical_hotbar.Vec2i;
 import dzwdz.vertical_hotbar.client.EntryPoint;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,7 +28,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
     @Shadow private int scaledHeight;
 
-    @Shadow protected abstract void renderHotbarItem(int i, int j, float f, PlayerEntity playerEntity, ItemStack itemStack);
+    @Shadow protected abstract void renderHotbarItem(int i, int j, float f, PlayerEntity playerEntity, ItemStack itemStack, int seed);
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
@@ -35,7 +36,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
     @Shadow @Final private MinecraftClient client;
 
-    @Shadow @Final private static Identifier WIDGETS_TEX;
+    @Shadow @Final private static Identifier WIDGETS_TEXTURE;
 
     @Inject(at = @At("HEAD"), cancellable = true,
             method = "Lnet/minecraft/client/gui/hud/InGameHud;renderHotbar(FLnet/minecraft/client/util/math/MatrixStack;)V")
@@ -45,7 +46,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         PlayerEntity playerEntity = getCameraPlayer();
         if (playerEntity == null) return;
 
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
         if (config.hotbarBorder) {
             client.getTextureManager().bindTexture(BARS);
@@ -53,17 +56,15 @@ public abstract class InGameHudMixin extends DrawableHelper {
             drawTexture(matrixStack, pos.x - 1, pos.y - 1, 20, 0, 22, 182);
         }
 
-        client.getTextureManager().bindTexture(WIDGETS_TEX);
-
         for(int i = 0; i < 9; i++) {
             Vec2i pos = getSlotPos(i, scaledWidth, scaledHeight);
             drawTexture(matrixStack, pos.x, pos.y, 1+20*i, 1, 20, 20);
-            if (i == playerEntity.inventory.selectedSlot)
+            if (i == playerEntity.getInventory().selectedSlot)
                 drawTexture(matrixStack, pos.x - 2, pos.y - 2, 0, 22, 24, 24);
         }
 
         { // selected slot overlay
-            Vec2i pos = getSlotPos(playerEntity.inventory.selectedSlot, scaledWidth, scaledHeight);
+            Vec2i pos = getSlotPos(playerEntity.getInventory().selectedSlot, scaledWidth, scaledHeight);
             drawTexture(matrixStack, pos.x - 2, pos.y - 2, 0, 22, 24, 24);
         }
 
@@ -72,21 +73,20 @@ public abstract class InGameHudMixin extends DrawableHelper {
             drawTexture(matrixStack, pos.x - 1, pos.y - 2, 24, 22, 29, 24);
         }
 
-        RenderSystem.enableRescaleNormal();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
+        int m = 1;
         for (int i = 0; i < 9; i++) {
             Vec2i pos = getSlotPos(i, scaledWidth, scaledHeight);
-            renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, playerEntity.inventory.main.get(i));
+            renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, playerEntity.getInventory().main.get(i), m++);
         }
 
         {
             Vec2i pos = getSlotPos(9, scaledWidth, scaledHeight);
-            renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, playerEntity.getOffHandStack());
+            renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, playerEntity.getOffHandStack(), m++);
         }
 
-        RenderSystem.disableRescaleNormal();
         RenderSystem.disableBlend();
 
         callbackInfo.cancel();
@@ -187,7 +187,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
         client.getTextureManager().bindTexture(EntryPoint.BARS);
 
-        int n = (int)(client.player.method_3151() * 183f);
+        int n = (int)(client.player.getMountJumpStrength() * 183f);
         Vec2i pos = getBarPos(scaledWidth, scaledHeight);
         drawTexture(matrixStack, pos.x, pos.y, 5, 0, 5, 182);
         if (n > 0) {

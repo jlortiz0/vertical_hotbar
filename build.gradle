@@ -1,10 +1,10 @@
 plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT'
+    id 'fabric-loom' version '0.11-SNAPSHOT'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = "${project.mod_version}+${project.minecraft_version}"
@@ -12,6 +12,9 @@ group = project.maven_group
 
 repositories {
     jcenter()
+    maven {
+        url "https://maven.terraformersmc.com/releases/"
+    }
 }
 
 dependencies {
@@ -33,19 +36,14 @@ dependencies {
     }
     include "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
 
-    modImplementation "io.github.prospector:modmenu:1.14.5+build.30"
+    modImplementation "com.terraformersmc:modmenu:3.2.2"
 }
 
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
     }
 }
 
