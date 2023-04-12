@@ -68,7 +68,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
             drawTexture(matrixStack, pos.x - 2, pos.y - 2, 0, 22, 24, 24);
         }
 
-        { // offhand
+        ItemStack offhand = playerEntity.getOffHandStack();
+
+        if (!offhand.isEmpty()) { // offhand
             Vec2i pos = getSlotPos(9, scaledWidth, scaledHeight);
             drawTexture(matrixStack, pos.x - 1, pos.y - 2, 24, 22, 29, 24);
         }
@@ -82,9 +84,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
             renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, playerEntity.getInventory().main.get(i), m++);
         }
 
-        {
+        if (!offhand.isEmpty()) {
             Vec2i pos = getSlotPos(9, scaledWidth, scaledHeight);
-            renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, playerEntity.getOffHandStack(), m++);
+            renderHotbarItem(pos.x + 2, pos.y + 2, f, playerEntity, offhand, m++);
         }
 
         RenderSystem.disableBlend();
