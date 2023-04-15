@@ -1,12 +1,10 @@
 package dzwdz.vertical_hotbar.client;
 
-import dzwdz.vertical_hotbar.Vec2i;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class EntryPoint implements ClientModInitializer {
