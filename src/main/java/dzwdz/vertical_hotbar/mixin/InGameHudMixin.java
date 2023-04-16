@@ -71,6 +71,20 @@ public abstract class InGameHudMixin extends DrawableHelper {
         return x + config.xOffset;
     }
 
+    @ModifyArg(at = @At(value="INVOKE", target="Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index=2,
+            method = "renderExperienceBar(Lnet/minecraft/client/util/math/MatrixStack;I)V")
+    public float renderExperienceBarTextX(float x) {
+        if (!config.enabled) {
+            return x;
+        }
+        if (config.leftAlign) {
+            x -= this.scaledWidth / 2;
+        } else {
+            x += this.scaledWidth / 2;
+        }
+        return x + config.xOffset;
+    }
+
     @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true,
             method = "renderMountJumpBar(Lnet/minecraft/client/util/math/MatrixStack;I)V")
     public int renderMountJumpBarX(int x) {
@@ -167,6 +181,18 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=2,
             method = "renderExperienceBar(Lnet/minecraft/client/util/math/MatrixStack;I)V")
     public int renderExperienceBarY(int y) {
+        if (!config.enabled) {
+            return y;
+        }
+        if (config.topAlign) {
+            y -= this.scaledHeight;
+        }
+        return y + config.yOffset;
+    }
+
+    @ModifyArg(at = @At(value="INVOKE", target="Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index=3,
+            method = "renderExperienceBar(Lnet/minecraft/client/util/math/MatrixStack;I)V")
+    public float renderExperienceBarTextY(float y) {
         if (!config.enabled) {
             return y;
         }
