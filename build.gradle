@@ -19,6 +19,9 @@ repositories {
         url "https://maven.shedaniel.me/"
     }
     maven { url "https://maven.ryanliptak.com/" }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
@@ -38,6 +41,8 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:3.2.5"
 
     modCompileOnly "squeek.appleskin:appleskin-fabric:mc1.18.2-2.4.1"
+
+    modCompileOnly "curse.maven:detailab-506898:3668091"
 }
 
 processResources {
