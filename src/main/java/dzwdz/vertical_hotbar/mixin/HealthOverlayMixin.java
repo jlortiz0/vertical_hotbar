@@ -1,19 +1,19 @@
 package dzwdz.vertical_hotbar.mixin;
 
-import com.redlimerl.detailab.render.InGameDrawer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import terrails.healthoverlay.heart.Heart;
 
 import static dzwdz.vertical_hotbar.client.EntryPoint.config;
 
-@Mixin(InGameDrawer.class)
-public class DetailArmorBarMixin {
-    @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true, require = 0,
-            method = "drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIIIZ)V")
-    private static int drawTextureX(int x) {
+@Mixin(Heart.class)
+public class HealthOverlayMixin {
+    @ModifyVariable(at=@At("HEAD"), ordinal=0, method = "draw", require = 0, argsOnly = true)
+    public int modifyHeartX(int x) {
         if (!config.enabled) {
             return x;
         }
@@ -28,9 +28,8 @@ public class DetailArmorBarMixin {
         }
     }
 
-    @ModifyVariable(at = @At(value="HEAD"), ordinal=1, argsOnly = true, require = 0,
-            method = "drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIIIZ)V")
-    private static int drawTextureY(int y) {
+    @ModifyVariable(at=@At("HEAD"), ordinal=1, method = "draw", require = 0, argsOnly = true)
+    public int modifyHeartY(int y) {
         if (!config.enabled) {
             return y;
         }

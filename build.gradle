@@ -43,6 +43,8 @@ dependencies {
     modCompileOnly "squeek.appleskin:appleskin-fabric:mc1.18.2-2.4.1"
 
     modCompileOnly "curse.maven:detailab-506898:3668091"
+
+    modCompileOnly "curse.maven:terrails-313219:3837204"
 }
 
 processResources {
