@@ -19,17 +19,18 @@ public class AppleSkinMixin {
     @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true, require = 0,
             method = "drawSaturationOverlay(Lnet/minecraft/client/util/math/MatrixStack;FFLnet/minecraft/client/MinecraftClient;IIF)V")
     public int drawSaturationOverlayX(int x) {
-        Window mc = MinecraftClient.getInstance().getWindow();
-        this.scaledWidth = mc.getScaledWidth();
         if (!config.enabled) {
             return x;
         }
+        Window mc = MinecraftClient.getInstance().getWindow();
+        this.scaledWidth = mc.getScaledWidth();
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=2, argsOnly = true, require = 0,
@@ -40,10 +41,11 @@ public class AppleSkinMixin {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true, require = 0,
@@ -54,10 +56,11 @@ public class AppleSkinMixin {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true, require = 0,
@@ -68,24 +71,26 @@ public class AppleSkinMixin {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=1, argsOnly = true, require = 0,
             method = "drawSaturationOverlay(Lnet/minecraft/client/util/math/MatrixStack;FFLnet/minecraft/client/MinecraftClient;IIF)V")
     public int drawSaturationOverlayY(int y) {
-        Window mc = MinecraftClient.getInstance().getWindow();
-        this.scaledHeight = mc.getScaledHeight();
         if (!config.enabled) {
             return y;
         }
         if (config.topAlign) {
+            Window mc = MinecraftClient.getInstance().getWindow();
+            this.scaledHeight = mc.getScaledHeight();
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=3, argsOnly = true, require = 0,
@@ -96,8 +101,9 @@ public class AppleSkinMixin {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=1, argsOnly = true, require = 0,
@@ -108,8 +114,9 @@ public class AppleSkinMixin {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=1, argsOnly = true, require = 0,
@@ -120,7 +127,8 @@ public class AppleSkinMixin {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 }

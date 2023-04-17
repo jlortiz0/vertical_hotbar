@@ -37,10 +37,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-		return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=1,
@@ -51,10 +52,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true,
@@ -65,10 +67,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value="INVOKE", target="Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index=2,
@@ -79,10 +82,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyVariable(at = @At(value="HEAD"), ordinal=0, argsOnly = true,
@@ -93,10 +97,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=1,
@@ -107,10 +112,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(IIFLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V"), index=0,
@@ -121,10 +127,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;renderHealthBar(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/entity/player/PlayerEntity;IIIIFIIIZ)V"), index=2,
@@ -135,10 +142,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"),
@@ -148,10 +156,11 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
         if (config.leftAlign) {
             x -= this.scaledWidth / 2;
+            return x + config.xOffset;
         } else {
             x += this.scaledWidth / 2;
+            return x - config.xOffset;
         }
-        return x + config.xOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=2,
@@ -162,8 +171,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=2,
@@ -174,8 +184,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=2,
@@ -186,8 +197,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value="INVOKE", target="Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index=3,
@@ -198,8 +210,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=2,
@@ -210,8 +223,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index=2,
@@ -222,8 +236,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(IIFLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V"), index=1,
@@ -234,8 +249,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target="Lnet/minecraft/client/gui/hud/InGameHud;renderHealthBar(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/entity/player/PlayerEntity;IIIIFIIIZ)V"), index=3,
@@ -246,8 +262,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 
     @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"),
@@ -258,7 +275,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         if (config.topAlign) {
             y -= this.scaledHeight;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 }

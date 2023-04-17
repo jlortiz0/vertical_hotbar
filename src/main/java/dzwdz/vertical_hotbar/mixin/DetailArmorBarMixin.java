@@ -38,8 +38,8 @@ public class DetailArmorBarMixin {
             Window mc = MinecraftClient.getInstance().getWindow();
             int scaledHeight = mc.getScaledHeight();
             y -= scaledHeight;
-            return y - config.yOffset;
+            return y + config.yOffset + 50;
         }
-        return y + config.yOffset;
+        return y - config.yOffset;
     }
 }
