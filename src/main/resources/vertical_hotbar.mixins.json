@@ -9,7 +9,8 @@
     "InGameHudMixin",
     "AppleSkinMixin",
     "DetailArmorBarMixin",
-    "HealthOverlayMixin"
+    "HealthOverlayMixin",
+    "MantleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
